@@ -155,7 +155,7 @@
                             <thead>
                                 <tr>
                                     <th>Username</th>
-                                    <th>Actions</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="userTableBody">
@@ -222,13 +222,7 @@
                     </div>
                     <form id="productionForm">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="empId" class="form-label">Name/Emp ID</label>
                                     <input type="text" class="form-control" id="empId" required>
@@ -362,6 +356,7 @@
             document.getElementById('userForm').addEventListener('submit', handleNewUser);
             document.getElementById('productionForm').addEventListener('submit', handleProductionSubmit);
             document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+=======
             
             // For demo purposes, initialize with some users if none exist
             if (Object.keys(users).length === 0) {
@@ -413,6 +408,28 @@
             alert("User created successfully");
         }
         
+        function showChangeUserPassword(username) {
+            const newPassword = prompt(`Enter new password for ${username}:`);
+            if (newPassword && newPassword.length >= 6) {
+                users[username] = newPassword;
+                localStorage.setItem('productionUsers', JSON.stringify(users));
+                alert(`Password for ${username} updated successfully!`);
+            } else if (newPassword !== null) {
+                alert("Password must be at least 6 characters");
+            }
+        }
+
+        function showChangeUserPassword(username) {
+            const newPassword = prompt(`Enter new password for ${username}:`);
+            if (newPassword && newPassword.length >= 6) {
+                users[username] = newPassword;
+                localStorage.setItem('productionUsers', JSON.stringify(users));
+                alert(`Password for ${username} updated successfully!`);
+            } else if (newPassword !== null) {
+                alert("Password must be at least 6 characters");
+            }
+        }
+
         function deleteUser(username) {
             if (confirm(`Are you sure you want to delete user ${username}?`)) {
                 delete users[username];
@@ -430,6 +447,7 @@
                 row.innerHTML = `
                     <td>${username}</td>
                     <td>
+                        <button class="btn btn-sm btn-primary me-2" onclick="showChangeUserPassword('${username}')">Change Password</button>
                         <button class="btn btn-sm btn-danger" onclick="deleteUser('${username}')">Delete</button>
                     </td>
                 `;
@@ -465,7 +483,6 @@
             
             // Get form values
             const formData = {
-                email: document.getElementById('email').value,
                 empId: document.getElementById('empId').value,
                 date: document.getElementById('date').value,
                 line: document.getElementById('line').value,
@@ -544,4 +561,3 @@
     </script>
 </body>
 </html>
-
