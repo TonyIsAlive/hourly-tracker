@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hourly Production Tracker</title>
+    <script src="https://kit.fontawesome.com/9f8cce9f53.js" crossorigin="anonymous"></script>
     <style>
         body { font-family: Arial, sans-serif; }
         form { max-width: 600px; margin: auto; }
@@ -87,7 +88,7 @@
                 if (response.ok) {
                     alert('Data submitted successfully!');
                 } else {
-                    alert('Error submitting data.');
+                    alert('Error submitting data: ' + response.status);
                 }
             })
             .catch(error => {
