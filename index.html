@@ -117,6 +117,9 @@
                 <div class="sidebar-item" onclick="showSection('productionData')">
                     <i class="fas fa-chart-line"></i> Production Data
                 </div>
+                <div class="sidebar-item" onclick="showSection('changePassword')">
+                    <i class="fas fa-key"></i> Change Password
+                </div>
                 <div class="sidebar-item" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </div>
@@ -159,6 +162,25 @@
                                 <!-- Users will be listed here -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                
+                <div id="changePassword" style="display: none;">
+                    <h3>Change Admin Password</h3>
+                    <div class="admin-container">
+                        <form id="changePasswordForm">
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newAdminPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newAdminPassword" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 
@@ -339,6 +361,7 @@
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('userForm').addEventListener('submit', handleNewUser);
             document.getElementById('productionForm').addEventListener('submit', handleProductionSubmit);
+            document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
             
             // For demo purposes, initialize with some users if none exist
             if (Object.keys(users).length === 0) {
@@ -486,6 +509,26 @@
             document.getElementById('password').value = '';
         }
         
+        function handleChangePassword(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newAdminPassword = document.getElementById('newAdminPassword').value;
+
+            // Check if the current password is correct
+            if (currentPassword !== ADMIN_PASSWORD) {
+                alert("Current password is incorrect.");
+                return;
+            }
+
+            // Update the admin password
+            ADMIN_PASSWORD = newAdminPassword;
+            alert("Password changed successfully!");
+            
+            // Reset the form
+            document.getElementById('changePasswordForm').reset();
+        }
+
         function showSection(sectionId) {
             document.querySelectorAll('.sidebar-item').forEach(item => {
                 item.classList.remove('active');
